@@ -1,4 +1,4 @@
-# nodejs-weather-app
+# Nodejs-Weather-App
 
 ### Dynamic Weather App 
 
