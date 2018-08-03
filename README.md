@@ -3,10 +3,10 @@
 ### Dynamic Weather App 
 
 ## Skills Learned
-1. NodeJS
-2. NPM
-3. Modular Code
-5. Request "HTTP Get"
+- NodeJS
+- NPM
+- Modular Code
+- Request "HTTP Get"
 
 
 
