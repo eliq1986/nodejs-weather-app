@@ -1,10 +1,7 @@
 
 const yargs = require("yargs");
 const axios = require("axios");
-//
 
-
-const wear = require("./to-do/to-do.js");
 
 
 const argv = yargs
@@ -22,29 +19,21 @@ const argv = yargs
 
 
   const encodeWithQuestionMark = encodeURIComponent(argv.address);
-  const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeWithQuestionMark}&key=AIzaSyAZWx8GUaGpfrczNReFQQuXfeXo2R0MZEw`;
-
+  const api_key = "DZz1ctMkfQw4h1Z8oues7E9Bbho3rGPC";
+  const geocodeUrl = `http://www.mapquestapi.com/geocoding/v1/address?key=${api_key}&location=${encodeWithQuestionMark}`;
 
   axios.get(geocodeUrl).then((response)=> {
-     if (response.data.status === "ZERO_RESULTS") {
-         throw new Error ("Unable to find that address.");
-     }
+      const lng = response.data.results[0].locations[0].displayLatLng.lng;
+     const lat = response.data.results[0].locations[0].displayLatLng.lat;
 
+     const weatherURL = `https://api.darksky.net/forecast/61a25768875673d685669fff4010cc5f/${lat},${lng}`;
 
-     const lat = response.data.results[0].geometry.location.lat;
-     const lng = response.data.results[0].geometry.location.lng;
-     const weatherURL = `https://api.darksky.net/forecast/0e3bfbc189da5a0b0da5bfecc60c73da/${lat},${lng}`;
+      return axios.get(weatherURL);
 
-
-     return axios.get(weatherURL)
-
-  }).then((response)=> {
-
-      wear.whatToWear(response.data.currently)
-
-
-
-  }).catch((error)=> {
+   }).then((response)=> {
+     const currentTemp = response.data.currently.apparentTemperature;
+     console.log(`The current temperature: ${currentTemp}`);
+   }).catch((error)=> {
       if (error.code === "ENOTFOUND") {
         console.log("Unable to connect to api servers")
       } else {
