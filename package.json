@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.13.1",
+    "chalk": "^2.4.2",
     "request": "^2.87.0",
     "yargs": "^4.8.1"
   }
